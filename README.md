@@ -11,4 +11,4 @@
 * [LLM 推理工作流图解](./LLM/llm_flow.md)
 
 ### 热门开源项目推荐
-* [GitHub Top 10 AI 开源项目榜单](./TopOpenSouce/top10_ai_projects.md)
+* [GitHub 热门 AI 开源项目精选 (最新趋势与经典 Top 10)](./TopOpenSouce/top_ai_projects.md)
