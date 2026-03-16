@@ -49,6 +49,6 @@ graph TD
         NextToken -->|将新词拼接到原句末尾循环进行| A
     end
 
-    classDef highlight fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef highlight fill:#ffe082,color:#000000,stroke:#d4a373,stroke-width:2px;
     class Q,K,V,ContextVector,FinalVector highlight;
 ```
