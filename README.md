@@ -9,6 +9,10 @@
   * KV Cache 与 Prompt Caching
   * 词向量空间与余弦相似度 (Cosine Similarity)
 * [LLM 推理工作流图解](./LLM/llm_flow.md)
+* [Ollama：本地运行大语言模型的完全指南](./LLM/ollama_guide.md)
+  * Ollama 是什么、架构原理、安装部署
+  * 模型推荐、REST API、自定义模型 (Modelfile)
+  * 硬件要求与生态集成
 
 ### 热门开源项目推荐
 * [GitHub 热门 AI 开源项目精选 (最新趋势与经典 Top 10)](./TopOpenSouce/top_ai_projects.md)
