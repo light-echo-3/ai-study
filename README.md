@@ -9,3 +9,6 @@
   * KV Cache 与 Prompt Caching
   * 词向量空间与余弦相似度 (Cosine Similarity)
 * [LLM 推理工作流图解](./LLM/llm_flow.md)
+
+### 热门开源项目推荐
+* [GitHub Top 10 AI 开源项目榜单](./TopOpenSouce/top10_ai_projects.md)
