@@ -16,26 +16,31 @@ graph TD
     subgraph Stage2 [2. Transformer 层 - 核心思考阶段]
         F --> G{第 1 层 Transformer}
         
-        subgraph SelfAttention [自注意力机制]
-            G -->|复制 3 份| H1(乘以 W_Q 矩阵)
-            G -->|复制 3 份| H2(乘以 W_K 矩阵)
-            G -->|复制 3 份| H3(乘以 W_V 矩阵)
+        subgraph SelfAttention [多头自注意力机制 Multi-Head Attention]
+            G -->|分裂为数十个头并行处理<br>各自负责语法、情感等不同维度| SplitHead[头1, 头2 ... 头N]
             
-            H1 -->|生成| Q[Q: 查询向量 - 想找什么样的词]
-            H2 -->|生成| K[K: 键向量 - 存入KV Cache用来被找]
-            H3 -->|生成| V[V: 值向量 - 存入KV Cache提供内容]
+            SplitHead --> H1(每个头独立乘 W_Q)
+            SplitHead --> H2(每个头独立乘 W_K)
+            SplitHead --> H3(每个头独立乘 W_V)
             
-            Q -->|与所有词的K算相似度| AttentionScore(注意力打分排名)
+            H1 -->|生成数十组| Q[Q: 查询向量 - 想找什么样的词]
+            H2 -->|生成数十组| K[K: 键向量 - 存入KV Cache用来被找]
+            H3 -->|生成数十组| V[V: 值向量 - 存入KV Cache提供内容]
+            
+            Q -->|各头独立计算相似度| AttentionScore(多组注意力打分)
             K -.-|被其他词的Q查询| AttentionScore
             
-            AttentionScore -->|按分数加权混合V| ContextVector[融合了上下文的新向量]
-            V -.-|提供实际内容| ContextVector
+            AttentionScore -->|按分数加权混合V| ContextVectors[各头独立提取的上下文向量]
+            V -.-|提供实际内容| ContextVectors
+            
+            ContextVectors -->|拼接融合所有视角的特征| ContextVector[融合了全方位上下文的新向量]
         end
         
         ContextVector --> FFN[前馈神经网络 FFN]
-        FFN --> Output1[本层输出的新向量]
+        FFN --> Output1[第 1 层输出的新向量]
         
-        Output1 -->|不断重复多层计算| FinalVector[终极多维向量包含了整句话的深层语境]
+        Output1 -->|传入第 2 层、第 3 层...| LoopN[重复多层相同的多头处理过程]
+        LoopN -->|通过最后 1 层| FinalVector[终极多维向量包含了整句话的深层语境]
     end
 
     subgraph Stage3 [3. 预测下一个词 - 输出阶段]
